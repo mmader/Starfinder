@@ -13,7 +13,6 @@ namespace Starfinder.Controllers
 {
     public class CreateCharacterController : Controller
     {
-		private ICharacterRepository repository;
 		private ApplicationDbContext context;
 
 		public CreateCharacterController(ApplicationDbContext ctx)
@@ -28,14 +27,15 @@ namespace Starfinder.Controllers
             return View();
         }
 
-		[HttpPost]
-        public async Task<IActionResult> Index(Character character)
+        public async Task<IActionResult> Save(Character character)
         {
 			if(ModelState.IsValid) {
 				await context.Characters.AddAsync(character);
 				await context.SaveChangesAsync();
 			}
-            return View();
+			return View("Index");
         }
+
+
     }
 }

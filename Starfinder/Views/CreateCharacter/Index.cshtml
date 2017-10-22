@@ -4,11 +4,11 @@
     <h3>
         <strong>Create a new Character</strong>
     </h3>
-    <form id="form1" name="form1" asp-controller="CreateCharacter">
+    <form id="form1" name="form1" asp-controller="CreateCharacter" asp-action="Save">
         <div id="name" class="form-group">
             <label >Character Name: </label>
             <input asp-for="Name" class="form-control"  placeholder="Character Name">
-            <select asp-for="Rasse" class="form-control">
+            <select asp-for="Race" class="form-control">
                 <option>ANDROIDS</option>
                 <option>HUMANS</option>
                 <option>KASATHAS</option>
@@ -16,11 +16,17 @@
                 <option>VESK</option>
                 <option>YSOKI</option>
             </select>
+            <select asp-for="Class" class="form-control">
+                <option>ENVOY</option> 
+                <option>MECHANIC</option>
+                <option>MYSTIC</option>
+                <option>OPERATIVE</option>
+                <option>SOLARIAN</option>
+                <option>SOLDIER</option>
+                <option>TECHNOMANCER</option>
+            </select>
         </div>
+        <button id="button1" name="btn" value="test" type="submit" class="btn btn-dark">Save</button>
     </form>
-    <button id="button1" onclick="onClick()" name="btn" value="test" type="button" class="btn btn-dark">Save</button>
-    <script>
-        function onClick() { $(form1).submit() }
-    </script>
 </div>
 

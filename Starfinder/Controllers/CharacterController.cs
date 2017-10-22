@@ -4,21 +4,37 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Starfinder.Interfaces;
+using Starfinder.Models;
+using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
 namespace Starfinder.Controllers
 {
     public class CharacterController : Controller
     {
-		private ICharacterRepository Repository;
+		private ApplicationDbContext Context;
 
-		public CharacterController(ICharacterRepository repo)
+		public CharacterController(ApplicationDbContext ctx)
 		{
-			Repository = repo;
+			Context = ctx;
 		}
 
         public IActionResult Index()
         {
-            return View(Repository.Characters);
+            return View(Context.Characters);
         }
+
+        public async Task<IActionResult> Delete(int id)
+		{
+			if(ModelState.IsValid) {
+				var chr = Context.Characters.FirstOrDefault(c => c.Id == id);
+				if(chr == null)
+					return RedirectToAction("Index");
+
+				Context.Characters.Remove(chr);
+				await Context.SaveChangesAsync();
+			}
+			
+			return RedirectToAction("Index");
+		}
     }
 }

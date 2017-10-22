@@ -4,12 +4,16 @@
     <h3>
         <strong>@Model.Name Lvl: @Model.Level</strong>
     </h3>
-    <pre>
-    Race : @Model.Rasse
-    CON : @Model.Constitution
-    STR : @Model.Strength
-    DEX : @Model.Dexterity
-    INT : @Model.Intelligence
-    WIS : @Model.Wisdom
-    </pre>
+    <div> Race  : @Model.Race </div>
+    <div> Class : @Model.Class </div>
+    <div>
+    CON : @Model.Constitution<br>
+    STR : @Model.Strength<br>
+    DEX : @Model.Dexterity<br>
+    INT : @Model.Intelligence<br>
+    WIS : @Model.Wisdom<br>
+    </div>
+    <form asp-controller="Character" asp-action="Delete">
+        <button id="button1" name="id" value="@Model.Id" type="submit" class="btn btn-dark">Delete</button>
+    </form>
 </div>
