@@ -1,0 +1,10 @@
+﻿@using Starfinder.Models
+@page
+@model IEnumerable<Character>
+@{
+    foreach(var character in Model) {
+        <div>
+            <h3>@character.Name</h3>
+        </div>
+    }
+}
