@@ -1,0 +1,4 @@
+﻿Starfinder Character Creation
+Views:
+	Create Character
+	View Character
