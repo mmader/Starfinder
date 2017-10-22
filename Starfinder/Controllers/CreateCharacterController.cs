@@ -31,8 +31,10 @@ namespace Starfinder.Controllers
 		[HttpPost]
         public async Task<IActionResult> Index(Character character)
         {
-			await context.Characters.AddAsync(character);
-			await context.SaveChangesAsync();
+			if(ModelState.IsValid) {
+				await context.Characters.AddAsync(character);
+				await context.SaveChangesAsync();
+			}
             return View();
         }
     }

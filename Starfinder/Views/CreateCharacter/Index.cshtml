@@ -4,22 +4,23 @@
     <h3>
         <strong>Create a new Character</strong>
     </h3>
-    <form asp-controller="CreateCharacter" method="post">
-        <div id="name"class="form-group" >
+    <form id="form1" name="form1" asp-controller="CreateCharacter">
+        <div id="name" class="form-group">
             <label >Character Name: </label>
             <input asp-for="Name" class="form-control"  placeholder="Character Name">
-        </div>
-        <div class="dropdown show">
-            <a class="btn btn-secondary dropdown-toggle" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown link
-            </a>
-
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" asp-for="Rasse">Mensch</a>
-                <a class="dropdown-item" asp-for="Rasse">Ysoki</a>
-                <a class="dropdown-item" asp-for="Rasse">Insekt</a>
-            </div>
+            <select asp-for="Rasse" class="form-control">
+                <option>ANDROIDS</option>
+                <option>HUMANS</option>
+                <option>KASATHAS</option>
+                <option>SHIRRENS</option>
+                <option>VESK</option>
+                <option>YSOKI</option>
+            </select>
         </div>
     </form>
+    <button id="button1" onclick="onClick()" name="btn" value="test" type="button" class="btn btn-dark">Save</button>
+    <script>
+        function onClick() { $(form1).submit() }
+    </script>
 </div>
 

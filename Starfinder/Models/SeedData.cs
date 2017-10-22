@@ -13,19 +13,19 @@ namespace Starfinder.Models
 		public static void EnsurePopulated(ApplicationDbContext ctx)
 		{
 			var context = ctx;
-			if(context.Characters.Any())
-				return;
+			if(!context.Characters.Any()) {
+				context.Characters.AddRange(
+					new Character { Name = "Kayak", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 },
+					new Character { Name = "Brunor", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 },
+					new Character { Name = "Kirk", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 },
+					new Character { Name = "Max", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 },
+					new Character { Name = "Shaft", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 },
+					new Character { Name = "MOrk", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 },
+					new Character { Name = "Zaphod", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 },
+					new Character { Name = "bzzzzzz", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 }
+				);
+			}
 
-			context.Characters.AddRange(
-				new Character { Name = "Kayak", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 },
-				new Character { Name = "Brunor", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 },
-				new Character { Name = "Kirk", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 },
-				new Character { Name = "Max", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 },
-				new Character { Name = "Shaft", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 },
-				new Character { Name = "MOrk", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 },
-				new Character { Name = "Zaphod", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 },
-				new Character { Name = "bzzzzzz", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 }
-			);
 			context.SaveChanges();
 		}
 
