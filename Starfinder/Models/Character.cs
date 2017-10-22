@@ -15,5 +15,6 @@ namespace Starfinder.Models
 		public int Constitution { get; set; }
 		public int Wisdom { get; set; }
 		public int Intelligence { get; set; }
-    }
+		public string Rasse { get; set; }
+	}
 }

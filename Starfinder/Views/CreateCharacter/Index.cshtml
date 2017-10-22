@@ -1,6 +1,25 @@
-﻿<div class="well">
+﻿@using Starfinder.Models
+@model Character
+<div class="container">
     <h3>
         <strong>Create a new Character</strong>
     </h3>
+    <form asp-controller="CreateCharacter" method="post">
+        <div id="name"class="form-group" >
+            <label >Character Name: </label>
+            <input asp-for="Name" class="form-control"  placeholder="Character Name">
+        </div>
+        <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown link
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" asp-for="Rasse">Mensch</a>
+                <a class="dropdown-item" asp-for="Rasse">Ysoki</a>
+                <a class="dropdown-item" asp-for="Rasse">Insekt</a>
+            </div>
+        </div>
+    </form>
 </div>
 
