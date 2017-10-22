@@ -27,16 +27,13 @@ namespace Starfinder
 				.UseDefaultServiceProvider(options => options.ValidateScopes = false)
                 .Build();
 
-			using (var scope = host.Services.CreateScope())
-			{
+			using(var scope = host.Services.CreateScope()) {
 				var services = scope.ServiceProvider;
-				try
-				{
+				try {
 					var context = services.GetRequiredService<ApplicationDbContext>();
 					SeedData.EnsurePopulated(context);
 				}
-				catch (Exception ex)
-				{
+				catch(Exception ex) {
 					var logger = services.GetRequiredService<ILogger<Program>>();
 					logger.LogError(ex, "An error occurred while seeding the database.");
 				}

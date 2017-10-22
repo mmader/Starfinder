@@ -41,7 +41,7 @@ namespace Starfinder.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Course");
+                    b.ToTable("Characters");
                 });
 #pragma warning restore 612, 618
         }

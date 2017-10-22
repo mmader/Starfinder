@@ -11,7 +11,7 @@ using System;
 namespace Starfinder.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171022060534_InitialCreate")]
+    [Migration("20171022074624_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,7 +42,7 @@ namespace Starfinder.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Course");
+                    b.ToTable("Characters");
                 });
 #pragma warning restore 612, 618
         }

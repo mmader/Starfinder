@@ -28,8 +28,6 @@ namespace Starfinder
 				.SetBasePath(env.ContentRootPath)
 				.AddJsonFile("appsettings.json")
 				.Build();
-
-
 		}
 		#endregion
 
@@ -39,7 +37,6 @@ namespace Starfinder
 		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 		public void ConfigureServices(IServiceCollection services)
 		{
-			var conf = Configuration["Data:Starfinder:ConnectionString"];
 			services.AddDbContext<ApplicationDbContext>(
 				options => options.UseSqlServer(Configuration["Data:Starfinder:ConnectionString"])
 			);
@@ -57,7 +54,7 @@ namespace Starfinder
 			app.UseMvc(routes => {
 				routes.MapRoute(
 					name: "default",
-					template: "{controller=Character}/{action=Index}"
+					template: "{controller=Home}/{action=Index}"
 				);
 			});
 		} 

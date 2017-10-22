@@ -15,7 +15,7 @@ namespace Starfinder.Controllers
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Character>().ToTable("Course");
+            modelBuilder.Entity<Character>().ToTable("Characters");
         }
     }
 }
