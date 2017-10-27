@@ -2,3 +2,9 @@
 Views:
 	Create Character
 	View Character
+
+
+Features:
+=========
+Random Button @ Character Creation
+
