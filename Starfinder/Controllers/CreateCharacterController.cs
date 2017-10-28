@@ -13,29 +13,43 @@ namespace Starfinder.Controllers
 {
     public class CreateCharacterController : Controller
     {
+		#region Private fields
 		private ApplicationDbContext context;
+		#endregion
 
+
+		#region Construction
 		public CreateCharacterController(ApplicationDbContext ctx)
 		{
 			context = ctx;
 		}
+		#endregion
 
-        // GET: /<controller>/
-		[HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
 
-        public async Task<IActionResult> Save(Character character)
-        {
-			if(ModelState.IsValid) {
-				await context.Characters.AddAsync(character);
-				await context.SaveChangesAsync();
+		#region Public Members
+		[HttpGet] public IActionResult Index(Character character)
+		{
+			return (character != null) 
+				? View("Index", character) 
+				: View();
+		}
+
+		[HttpPost] public IActionResult Randomize(Character character)
+		{
+			if(ModelState.IsValid)
+				character?.Randomize();
+
+			return RedirectToAction("Index", character);
+		}
+
+		[HttpPost] public async Task<IActionResult> Save(Character character)
+		{
+			if(ModelState.IsValid && (character != null)) {
+				await context?.Characters?.AddAsync(character);
+				await context?.SaveChangesAsync();
 			}
-			return View("Index");
-        }
-
-
-    }
+			return RedirectToAction("Index", character);
+		} 
+		#endregion
+	}
 }

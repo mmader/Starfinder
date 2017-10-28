@@ -7,8 +7,8 @@
     <form id="form1" name="form1" asp-controller="CreateCharacter" asp-action="Save">
         <div id="name" class="form-group">
             <label >Character Name: </label>
-            <input asp-for="Name" class="form-control"  placeholder="Character Name">
-            <select asp-for="Race" class="form-control">
+            <input asp-for="@Model.Name" class="form-control">
+            <select asp-for="@Model.Race" class="form-control">
                 <option>ANDROIDS</option>
                 <option>HUMANS</option>
                 <option>KASATHAS</option>
@@ -16,7 +16,7 @@
                 <option>VESK</option>
                 <option>YSOKI</option>
             </select>
-            <select asp-for="Class" class="form-control">
+            <select asp-for="@Model.Class" class="form-control">
                 <option>ENVOY</option> 
                 <option>MECHANIC</option>
                 <option>MYSTIC</option>
@@ -27,6 +27,7 @@
             </select>
         </div>
         <button id="button1" name="btn" value="test" type="submit" class="btn btn-dark">Save</button>
+        <button id="Random" name="btnRandom" asp-action="Randomize" class="btn btn-dark">Random</button>
     </form>
 </div>
 
