@@ -10,9 +10,51 @@ namespace Starfinder.Models
 {
     public static class SeedData
     {
+		private static ApplicationDbContext context;
+
 		public static void EnsurePopulated(ApplicationDbContext ctx)
 		{
-			var context = ctx;
+			context = ctx;
+			InitCharacters();
+			InitRaces();
+			InitClasses();
+		}
+
+		private static void InitClasses()
+		{
+			if(!context.Classes.Any()) {
+				context.Classes.AddRange(
+					new CharacterClass() { Name = "ENVOY"},
+					new CharacterClass() { Name = "MECHANIC"},
+					new CharacterClass() { Name = "MYSTIC"},
+					new CharacterClass() { Name = "OPERATIVE"},
+					new CharacterClass() { Name = "SOLARIAN"},
+					new CharacterClass() { Name = "SOLDIER"},
+					new CharacterClass() { Name = "TECHNOMANCER"}
+				);
+			}
+
+			context.SaveChanges();
+		}
+
+		private static void InitRaces()
+		{
+			if(!context.Races.Any()) {
+				context.Races.AddRange(
+					new Race() { Name= "ANDROIDS" },
+					new Race() { Name= "HUMANS"	},
+					new Race() { Name= "KASATHAS" },
+					new Race() { Name= "SHIRRENS" },
+					new Race() { Name= "VESK" },
+					new Race() { Name= "YSOKI" }
+				);
+			}
+
+			context.SaveChanges();
+		}
+
+		private static void InitCharacters()
+		{
 			if(!context.Characters.Any()) {
 				context.Characters.AddRange(
 					new Character { Name = "Kayak", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 },
@@ -28,16 +70,5 @@ namespace Starfinder.Models
 
 			context.SaveChanges();
 		}
-
-		public static void EnsurePopulated(IApplicationBuilder app)
-		{
-			var context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>();
-			if(!context.Characters.Any()) {
-				context.Characters.AddRange(
-					new Character { Name = "Kayak", Strength = 10, Dexterity = 10, Constitution = 10, Intelligence = 10, Level = 1, Wisdom = 10 }
-				);
-				context.SaveChanges();
-			}
-		}
-    }
+	}
 } 

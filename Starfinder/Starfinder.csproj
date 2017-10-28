@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Models\Character.cs" />
+    <None Include="Models\Character\Character.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -25,7 +25,7 @@ namespace Starfinder.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Class");
+                    b.Property<int?>("ClassId");
 
                     b.Property<int>("Constitution");
 
@@ -37,7 +37,7 @@ namespace Starfinder.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("Race");
+                    b.Property<int?>("RaceId");
 
                     b.Property<int>("Strength");
 
@@ -45,7 +45,46 @@ namespace Starfinder.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClassId");
+
+                    b.HasIndex("RaceId");
+
                     b.ToTable("Characters");
+                });
+
+            modelBuilder.Entity("Starfinder.Models.CharacterClass", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Classes");
+                });
+
+            modelBuilder.Entity("Starfinder.Models.Race", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Races");
+                });
+
+            modelBuilder.Entity("Starfinder.Models.Character", b =>
+                {
+                    b.HasOne("Starfinder.Models.CharacterClass", "Class")
+                        .WithMany()
+                        .HasForeignKey("ClassId");
+
+                    b.HasOne("Starfinder.Models.Race", "Race")
+                        .WithMany()
+                        .HasForeignKey("RaceId");
                 });
 #pragma warning restore 612, 618
         }

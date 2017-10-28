@@ -50,6 +50,8 @@ namespace Starfinder.Controllers
 			}
 			return RedirectToAction("Index", character);
 		} 
+
+		[HttpPost] public IActionResult New(Character character) => RedirectToAction("Index", Character.Create());
 		#endregion
 	}
 }

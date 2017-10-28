@@ -9,13 +9,22 @@ namespace Starfinder.Models
 {
 	public class CharacterRepository : ICharacterRepository
 	{
-		private	ApplicationDbContext context;
+		#region Private Fields
+		private ApplicationDbContext context;
+		#endregion
 
+
+		#region Properties
+		public IEnumerable<Character>	Characters	=> context.Characters;
+		public IEnumerable<Race>		Races		=> context.Races; 
+		#endregion
+
+
+		#region Construction
 		public CharacterRepository(ApplicationDbContext ctx)
 		{
 			context = ctx;
 		}
-
-		public IEnumerable<Character> Characters => context.Characters;
+		#endregion
 	}
 }
