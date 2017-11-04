@@ -22,8 +22,8 @@ namespace Starfinder.Models
 
         public int RaceId           { get; set; }
         public int ClassId          { get; set; }
-		public Race           Race  { get; set; } = new Race()           { Name = string.Empty };
-		public CharacterClass Class	{ get; set; } = new CharacterClass() { Name = string.Empty };
+		public Race           Race  { get; set; }
+		public CharacterClass Class	{ get; set; }
 
 		public string AvatarPath { get; set; }
 		#endregion
@@ -34,6 +34,12 @@ namespace Starfinder.Models
 		{
 			Name = "Randomized";
 		}
+
+        public void Init(ApplicationDbContext context)
+        {
+            Race  = context.Races  .FirstOrDefault(r => r.Id == RaceId );
+            Class = context.Classes.FirstOrDefault(c => c.Id == ClassId);
+        }
 
 		internal static Character Create() => new Character();
 		#endregion

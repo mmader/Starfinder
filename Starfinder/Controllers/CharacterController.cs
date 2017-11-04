@@ -20,10 +20,8 @@ namespace Starfinder.Controllers
 
         public IActionResult Index()
         {
-            foreach(var character in Context.Characters) {
-                character.Race  = Context.Races  .FirstOrDefault(r => r.Id == character.RaceId );
-                character.Class = Context.Classes.FirstOrDefault(c => c.Id == character.ClassId);
-            }
+            foreach(var character in Context.Characters)
+                character.Init(Context);
 
             return View(Context.Characters);
         }
