@@ -1,29 +1,18 @@
-﻿@using Starfinder.Models
-@model Character
+﻿@using Starfinder.Models.ViewModels
+@model CreateCharacterViewModel 
 <div class="container">
     <h2>
         <strong>Create a new Character</strong>
     </h2>
     <form id="form1" name="form1" asp-controller="CreateCharacter" asp-action="Save">
-        <div id="name" class="form-group">
+        <div class="form-group">
             <label >Character Name: </label>
-            <input asp-for="Name" class="form-control">
-            <select asp-for="Race" class="form-control">
-                <option>ANDROIDS</option>
-                <option>HUMANS</option>
-                <option>KASATHAS</option>
-                <option>SHIRRENS</option>
-                <option>VESK</option>
-                <option>YSOKI</option>
+            <input asp-for="@Model.Character.Name" class="form-control">
+            <select id="classSelector" asp-for="@Model.Character.Class" asp-items="@(new SelectList(Model.AvailableClasses,"Id","Name"))">
+                <option>Please select a Race...</option>
             </select>
-            <select asp-for="@Model.Class" class="form-control">
-                <option>ENVOY</option> 
-                <option>MECHANIC</option>
-                <option>MYSTIC</option>
-                <option>OPERATIVE</option>
-                <option>SOLARIAN</option>
-                <option>SOLDIER</option>
-                <option>TECHNOMANCER</option>
+            <select id="raceSelector" asp-for="@Model.Character.Race" asp-items="@(new SelectList(Model.AvailableRaces,"Id","Name"))">
+                <option>Please select a class...</option>
             </select>
         </div>
         <button id="button1" name="btn" value="test" type="submit" class="btn btn-dark">Save</button>

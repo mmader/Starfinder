@@ -27,7 +27,7 @@ namespace Starfinder.Migrations
 
                     b.Property<string>("AvatarPath");
 
-                    b.Property<int?>("ClassId");
+                    b.Property<int>("ClassId");
 
                     b.Property<int>("Constitution");
 
@@ -39,7 +39,7 @@ namespace Starfinder.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("RaceId");
+                    b.Property<int>("RaceId");
 
                     b.Property<int>("Strength");
 
@@ -82,11 +82,13 @@ namespace Starfinder.Migrations
                 {
                     b.HasOne("Starfinder.Models.CharacterClass", "Class")
                         .WithMany()
-                        .HasForeignKey("ClassId");
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Starfinder.Models.Race", "Race")
                         .WithMany()
-                        .HasForeignKey("RaceId");
+                        .HasForeignKey("RaceId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

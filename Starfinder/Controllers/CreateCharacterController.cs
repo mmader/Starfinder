@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Starfinder.Interfaces;
 using Starfinder.Models;
+using Starfinder.Models.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,31 +28,40 @@ namespace Starfinder.Controllers
 
 
 		#region Public Members
-		[HttpGet] public IActionResult Index(Character character)
+		[HttpGet] public IActionResult Index(CreateCharacterViewModel vm)
 		{
-			return (character != null) 
-				? View("Index", character) 
+            vm.AvailableRaces   = context.Races;
+            vm.AvailableClasses = context.Classes;
+
+            return (vm != null) 
+				? View("Index", vm) 
 				: View();
 		}
 
-		[HttpPost] public IActionResult Randomize(Character character)
+		[HttpPost] public IActionResult Randomize(CreateCharacterViewModel vm)
 		{
 			if(ModelState.IsValid)
-				character?.Randomize();
+				vm?.Character?.Randomize();
 
-			return RedirectToAction("Index", character);
+			return RedirectToAction("Index", vm);
 		}
 
-		[HttpPost] public async Task<IActionResult> Save(Character character)
+		[HttpPost] public async Task<IActionResult> Save(CreateCharacterViewModel vm)
 		{
-			if(ModelState.IsValid && (character != null)) {
-				await context?.Characters?.AddAsync(character);
+            var race           = int.Parse(HttpContext.Request.Form["Character.Race" ]);
+            var characterClass = int.Parse(HttpContext.Request.Form["Character.Class"]);
+
+            vm.Character.Race  = context.Races  .FirstOrDefault(r => r.Id == race);
+            vm.Character.Class = context.Classes.FirstOrDefault(r => r.Id == race);
+
+			if(ModelState.IsValid && (vm?.Character != null)) {
+				await context?.Characters?.AddAsync(vm.Character);
 				await context?.SaveChangesAsync();
 			}
-			return RedirectToAction("Index", character);
+			return RedirectToAction("Index", vm);
 		} 
 
-		[HttpPost] public IActionResult New(Character character) => RedirectToAction("Index", Character.Create());
+		[HttpPost] public IActionResult New(CreateCharacterViewModel vm) => RedirectToAction("Index", vm.Character = Character.Create());
 		#endregion
 	}
 }

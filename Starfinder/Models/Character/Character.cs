@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Starfinder.Controllers;
 
 namespace Starfinder.Models
 {
@@ -19,8 +20,10 @@ namespace Starfinder.Models
 		public int Wisdom       { get; set; } = 10;
 		public int Intelligence { get; set; } = 10;
 
-		public Race           Race  { get; set; }
-		public CharacterClass Class	{ get; set; }
+        public int RaceId           { get; set; }
+        public int ClassId          { get; set; }
+		public Race           Race  { get; set; } = new Race()           { Name = string.Empty };
+		public CharacterClass Class	{ get; set; } = new CharacterClass() { Name = string.Empty };
 
 		public string AvatarPath { get; set; }
 		#endregion
