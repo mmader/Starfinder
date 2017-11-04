@@ -38,13 +38,10 @@ namespace Starfinder.Controllers
 				: View();
 		}
 
-		[HttpPost] public async Task<IActionResult> Randomize(CreateCharacterViewModel vm)
+		[HttpPost] public IActionResult Randomize(CreateCharacterViewModel vm)
 		{
 			if(ModelState.IsValid)
 				vm?.Character?.Randomize(context);
-
-            context.Characters.Update(context.Characters.FirstOrDefault(c => c.Id == vm.Character.Id));
-            await context.SaveChangesAsync();
 
 			return RedirectToAction("Index", vm);
 		}
