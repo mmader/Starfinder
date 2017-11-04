@@ -1,7 +1,9 @@
 ﻿@using Starfinder.Models
 @model IEnumerable<Character>
 @{
-    <h2>Characters</h2>
+    <h2>
+        <strong>Characters</strong>
+    </h2>
     foreach(var character in Model) {
         @Html.Partial("CharacterSummary", character)
     }
