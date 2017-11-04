@@ -30,9 +30,20 @@ namespace Starfinder.Models
 
 
 		#region Public Members
-		public void Randomize()
+		public void Randomize(ApplicationDbContext context)
 		{
-			Name = "Randomized";
+			Name         = "Randomized Name";
+            Strength     = new Random().Next(1, 20);
+            Dexterity    = new Random().Next(1, 20);
+            Constitution = new Random().Next(1, 20);
+            Wisdom       = new Random().Next(1, 20);
+            Intelligence = new Random().Next(1, 20);
+
+            RaceId = new Random().Next(1, context.Races.Count());
+            Race = context.Races.FirstOrDefault(r => r.Id == RaceId);
+
+            ClassId = new Random().Next(1, context.Classes.Count());
+            Class   = context.Classes.FirstOrDefault(r => r.Id == ClassId);
 		}
 
         public void Init(ApplicationDbContext context)

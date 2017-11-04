@@ -8,12 +8,8 @@
         <div class="form-group">
             <label >Character Name: </label>
             <input asp-for="@Model.Character.Name" class="form-control">
-            <select id="classSelector" asp-for="@Model.Character.Class" asp-items="@(new SelectList(Model.AvailableClasses,"Id","Name"))">
-                <option>Please select a Race...</option>
-            </select>
-            <select id="raceSelector" asp-for="@Model.Character.Race" asp-items="@(new SelectList(Model.AvailableRaces,"Id","Name"))">
-                <option>Please select a class...</option>
-            </select>
+            <select id="classSelector" asp-for="@Model.Character.Class" asp-items="@(new SelectList(Model.AvailableClasses,"Id","Name"))"> </select>
+            <select id="raceSelector" asp-for="@Model.Character.Race" asp-items="@(new SelectList(Model.AvailableRaces,"Id","Name"))"> </select>
         </div>
         <button id="button1" name="btn" value="test" type="submit" class="btn btn-dark">Save</button>
         <button id="Random" name="btnRandom" asp-action="Randomize" class="btn btn-dark">Random</button>
