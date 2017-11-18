@@ -16,7 +16,7 @@ namespace Starfinder.Models
 
 		#region Properties
 		public IEnumerable<Character>       Characters	=> context.Characters;
-		public IEnumerable<Race>            Races		=> context.Races; 
+		public IEnumerable<Race>            Races		=> context.Races;
 		public IEnumerable<CharacterClass>  Classes		=> context.Classes;
 		#endregion
 
