@@ -21,7 +21,7 @@ namespace Starfinder.Controllers
         public IActionResult Index()
         {
             foreach(var character in Context.Characters)
-                character.Init(Context);
+                character.Init(Context.Classes, Context.Races);
 
             return View(Context.Characters);
         }

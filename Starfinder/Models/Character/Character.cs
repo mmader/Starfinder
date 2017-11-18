@@ -30,7 +30,7 @@ namespace Starfinder.Models
 
 
 		#region Public Members
-		public void Randomize(ApplicationDbContext context)
+		public void Randomize(IEnumerable<CharacterClass> classes, IEnumerable<Race> races)
 		{
 			Name         = "Randomized Name";
             Strength     = new Random().Next(1, 20);
@@ -39,17 +39,17 @@ namespace Starfinder.Models
             Wisdom       = new Random().Next(1, 20);
             Intelligence = new Random().Next(1, 20);
 
-            RaceId = new Random().Next(1, context.Races.Count());
-            Race = context.Races.FirstOrDefault(r => r.Id == RaceId);
+            RaceId = new Random().Next(1, races.Count());
+            Race = races.FirstOrDefault(r => r.Id == RaceId);
 
-            ClassId = new Random().Next(1, context.Classes.Count());
-            Class   = context.Classes.FirstOrDefault(r => r.Id == ClassId);
+            ClassId = new Random().Next(1, classes.Count());
+            Class   = classes.FirstOrDefault(r => r.Id == ClassId);
 		}
 
-        public void Init(ApplicationDbContext context)
+        public void Init(IEnumerable<CharacterClass> classes, IEnumerable<Race> races)
         {
-            Race  = context.Races  .FirstOrDefault(r => r.Id == RaceId );
-            Class = context.Classes.FirstOrDefault(c => c.Id == ClassId);
+            Race  = races  .FirstOrDefault(r => r.Id == RaceId );
+            Class = classes.FirstOrDefault(c => c.Id == ClassId);
         }
 
 		internal static Character Create() => new Character();

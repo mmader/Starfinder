@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Starfinder.Infrastructure;
 using Starfinder.Interfaces;
 using Starfinder.Models;
 using Starfinder.Models.ViewModels;
@@ -28,31 +29,37 @@ namespace Starfinder.Controllers
 
 
 		#region Public Members
-		[HttpGet] public IActionResult Index(CreateCharacterViewModel vm)
-		{
-            vm.AvailableRaces   = context.Races;
-            vm.AvailableClasses = context.Classes;
+		[HttpGet] public IActionResult Index(int id)
+            => View("Index", new CreateCharacterViewModel {
+                Character        = GetCharacter(),
+                AvailableRaces   = context.Races,
+                AvailableClasses = context.Classes
+            }); 
 
-            return (vm != null) 
-				? View("Index", vm) 
-				: View();
+		[HttpPost] public IActionResult Randomize()
+		{
+            var character = GetCharacter();
+            character.Randomize(context.Classes, context.Races);
+
+			return RedirectToAction("Index", new CreateCharacterViewModel {
+                Character        = character,
+                AvailableRaces   = context.Races,
+                AvailableClasses = context.Classes
+            });
 		}
 
-		[HttpPost] public IActionResult Randomize(CreateCharacterViewModel vm)
+		[HttpPost] public async Task<IActionResult> Save(int selectedClass, int selectedRace)
 		{
-			if(ModelState.IsValid)
-				vm?.Character?.Randomize(context);
+            //var raceId  = int.Parse(HttpContext.Request.Form["Character.Race" ]);
+            //var classId = int.Parse(HttpContext.Request.Form["Character.Class"]);
+            var raceId  = selectedRace;
+            var classId = selectedClass;
 
-			return RedirectToAction("Index", vm);
-		}
-
-		[HttpPost] public async Task<IActionResult> Save(CreateCharacterViewModel vm)
-		{
-            var race           = int.Parse(HttpContext.Request.Form["Character.Race" ]);
-            var characterClass = int.Parse(HttpContext.Request.Form["Character.Class"]);
-
-            vm.Character.Race  = context.Races  .FirstOrDefault(r => r.Id == race);
-            vm.Character.Class = context.Classes.FirstOrDefault(r => r.Id == race);
+            var vm = new CreateCharacterViewModel() { Character = GetCharacter(), AvailableClasses = context.Classes, AvailableRaces = context.Races };
+            vm.Character.Race    = context.Races  .FirstOrDefault(r => r.Id == raceId);
+            vm.Character.RaceId  = vm.Character.Race.Id;
+            vm.Character.Class   = context.Classes.FirstOrDefault(r => r.Id == classId);
+            vm.Character.ClassId = vm.Character.Class.Id;
 
 			if(ModelState.IsValid && (vm?.Character != null)) {
 				await context?.Characters?.AddAsync(vm.Character);
@@ -62,6 +69,13 @@ namespace Starfinder.Controllers
 		} 
 
 		[HttpPost] public IActionResult New(CreateCharacterViewModel vm) => RedirectToAction("Index", vm.Character = Character.Create());
-		#endregion
-	}
+        #endregion
+
+
+        #region Private Helpers
+        private Character GetCharacter() => HttpContext.Session.GetJson<Character>("Character") ?? new Character();
+
+        private void SaveCart(Character character) => HttpContext.Session.SetJson("Character", character);
+        #endregion
+    }
 }

@@ -10,7 +10,9 @@ namespace Starfinder.Models.ViewModels
         #region Properties
         public Character Character { get; set; }
         public IEnumerable<Race> AvailableRaces { get; set; }
+        public int SelectedRace { get; set; }
         public IEnumerable<CharacterClass> AvailableClasses { get; set; }
+        public int SelectedClass { get; set; }
         #endregion
 
 
